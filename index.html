@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <head>
+    <title>Image Snake Game</title>
+      <style>
+        .container {
+          display: flex;
+          justify-content: above;
+          align-items: above;
+          height: 100vh;
+        }
+      </style>
+    <body>
+      <div class="container">
+        <h1>ISY ABENTEUER SPIEL!</h1>
+      </div>
+    </body>
+    </head>
+  
+    
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: rgb(131, 131, 131);
+        }
+
+        #game-board {
+            width: 400px;
+            height: 400px;
+            background-color: #f1f1f1;
+            position: relative;
+        }
+
+        #snake {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+        }
+
+        #food {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            background-image: url("0G8A3143 (1).jpg");
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-board">
+        <img src="WhatsApp Bild 2023-06-12 um 10.51.03.jpg" id="snake">
+        <div id="food"></div>
+    </div>
+
+    <script>
+        var snake = document.getElementById("snake");
+        var food = document.getElementById("food");
+        var gameBoard = document.getElementById("game-board");
+
+        var snakeX = 0;
+        var snakeY = 0;
+
+        var foodX = 0;
+        var foodY = 0;
+
+        var direction = "right";
+        var speed = 20;
+
+        function startGame() {
+            foodX = Math.floor(Math.random() * 20) * 20;
+            foodY = Math.floor(Math.random() * 20) * 20;
+            food.style.left = foodX + "px";
+            food.style.top = foodY + "px";
+
+            document.addEventListener("keydown", changeDirection);
+
+            setInterval(moveSnake, 200);
+        }
+
+        function changeDirection(event) {
+            if (event.keyCode == 65 && direction !== "right") { // A key
+                direction = "left";
+            } else if (event.keyCode == 87 && direction !== "down") { // W key
+                direction = "up";
+            } else if (event.keyCode == 68 && direction !== "left") { // D key
+                direction = "right";
+            } else if (event.keyCode == 83 && direction !== "up") { // S key
+                direction = "down";
+            }
+        }
+
+        function moveSnake() {
+            if (direction === "right") {
+                snakeX += speed;
+            } else if (direction === "left") {
+                snakeX -= speed;
+            } else if (direction === "up") {
+                snakeY -= speed;
+            } else if (direction === "down") {
+                snakeY += speed;
+            }
+
+            snake.style.left = snakeX + "px";
+            snake.style.top = snakeY + "px";
+
+            if (snakeX === foodX && snakeY === foodY) {
+                foodX = Math.floor(Math.random() * 20) * 20;
+                foodY = Math.floor(Math.random() * 20) * 20;
+                food.style.left = foodX + "px";
+                food.style.top = foodY + "px";
+            }
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
